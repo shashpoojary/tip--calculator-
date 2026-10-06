@@ -12,7 +12,7 @@ A simple and mobile-friendly tip calculator built with HTML, CSS and JavaScript.
 
 ## 🌐 Live Demo
 
-https://shashpoojary.github.io/tip-calculator/
+https://shashpoojary.github.io/tip--calculator-/
 
 ## 🛠️ Technologies
 
