@@ -1,45 +1,193 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tip Calculator</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .calculator {
+            background: white;
+            width: 100%;
+            max-width: 420px;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 0;
+            color: #333;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #777;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 7px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 22px;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: #667eea;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 18px;
+            background: #f5f6ff;
+            border-radius: 12px;
+        }
+
+        .result p {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            color: #444;
+        }
+
+        .result strong {
+            color: #333;
+        }
+
+        .error {
+            color: #d93025;
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #999;
+            font-size: 13px;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Tip Calculator</h1>
 
-    <p>Bill Amount:</p>
-    <input type="number" id="bill" placeholder="Enter bill amount">
+    <div class="calculator">
 
-    <p>Tip Percentage:</p>
-    <input type="number" id="tip" placeholder="Enter tip %">
+        <h1>💰 Tip Calculator</h1>
 
-    <p>Number of People:</p>
-    <input type="number" id="people" placeholder="Enter number of people">
+        <p class="subtitle">Calculate your bill in seconds</p>
 
-    <br><br>
+        <label for="bill">Bill Amount (₹)</label>
+        <input type="number" id="bill" placeholder="Example: 1000">
 
-    <button onclick="calculateTip()">Calculate</button>
+        <label for="tip">Tip Percentage (%)</label>
+        <input type="number" id="tip" placeholder="Example: 10">
 
-    <h2>Result</h2>
+        <label for="people">Number of People</label>
+        <input type="number" id="people" placeholder="Example: 2">
 
-    <p>Tip: ₹<span id="tipAmount">0</span></p>
-    <p>Total: ₹<span id="totalAmount">0</span></p>
-    <p>Per Person: ₹<span id="perPerson">0</span></p>
+        <button onclick="calculateTip()">Calculate</button>
+
+        <p id="error" class="error"></p>
+
+        <div class="result">
+            <p>
+                <strong>Tip:</strong>
+                <span>₹<span id="tipAmount">0.00</span></span>
+            </p>
+
+            <p>
+                <strong>Total:</strong>
+                <span>₹<span id="totalAmount">0.00</span></span>
+            </p>
+
+            <p>
+                <strong>Per Person:</strong>
+                <span>₹<span id="perPerson">0.00</span></span>
+            </p>
+        </div>
+
+        <div class="footer">
+            Made with ❤️
+        </div>
+
+    </div>
 
     <script>
         function calculateTip() {
+
             let bill = Number(document.getElementById("bill").value);
             let tipPercent = Number(document.getElementById("tip").value);
             let people = Number(document.getElementById("people").value);
+
+            let error = document.getElementById("error");
+
+            if (bill <= 0 || tipPercent < 0 || people <= 0) {
+                error.textContent = "Please enter valid numbers.";
+                return;
+            }
+
+            error.textContent = "";
 
             let tipAmount = bill * tipPercent / 100;
             let totalAmount = bill + tipAmount;
             let perPerson = totalAmount / people;
 
-            document.getElementById("tipAmount").textContent = tipAmount.toFixed(2);
-            document.getElementById("totalAmount").textContent = totalAmount.toFixed(2);
-            document.getElementById("perPerson").textContent = perPerson.toFixed(2);
+            document.getElementById("tipAmount").textContent =
+                tipAmount.toFixed(2);
+
+            document.getElementById("totalAmount").textContent =
+                totalAmount.toFixed(2);
+
+            document.getElementById("perPerson").textContent =
+                perPerson.toFixed(2);
         }
     </script>
+
 </body>
 </html>
